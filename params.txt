@@ -1,0 +1,16 @@
+TypeError: {http://ws.catalog.prosur.org/}ipRecord() got an unexpected keyword argument 'ipRecord'. 
+
+
+Signature:
+    applicantName: xsd:string[], 
+    applicationId: xsd:string, 
+    files: {http://ws.catalog.prosur.org/}fileData[], 
+    ipRecordDetailLink: xsd:string, 
+    ipRecordFilesService: xsd:string,
+    ipRecordId: xsd:long, 
+    nationalPresentationDate: xsd:date, 
+    nationalPublishingDate: xsd:date, 
+    onapiId: xsd:string, 
+    recordType: {http://ws.catalog.prosur.org/}ipRecordTypeEnum,
+    statusId: xsd:string, 
+    title: xsd:string`
