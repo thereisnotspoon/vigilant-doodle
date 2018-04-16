@@ -1,0 +1,251 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions name="ProsurIPRecordWSService" targetNamespace="http://ws.catalog.prosur.org/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://ws.catalog.prosur.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://ws.catalog.prosur.org/" xmlns:tns="http://ws.catalog.prosur.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="createRecord" type="tns:createRecord"/>
+  <xs:element name="createRecordResponse" type="tns:createRecordResponse"/>
+  <xs:element name="getRecord" type="tns:getRecord"/>
+  <xs:element name="getRecordResponse" type="tns:getRecordResponse"/>
+  <xs:element name="removeRecord" type="tns:removeRecord"/>
+  <xs:element name="removeRecordResponse" type="tns:removeRecordResponse"/>
+  <xs:complexType name="removeRecord">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ipRecord" type="tns:ipRecord"/>
+      <xs:element minOccurs="0" name="user" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ipRecord">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="applicantName" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="applicationId" nillable="true" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="files" nillable="true" type="tns:fileData"/>
+      <xs:element minOccurs="0" name="ipRecordDetailLink" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="ipRecordFilesService" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="ipRecordId" nillable="true" type="xs:long"/>
+      <xs:element minOccurs="0" name="nationalPresentationDate" nillable="true" type="xs:date"/>
+      <xs:element minOccurs="0" name="nationalPublishingDate" nillable="true" type="xs:date"/>
+      <xs:element minOccurs="0" name="onapiId" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="recordType" nillable="true" type="tns:ipRecordTypeEnum"/>
+      <xs:element minOccurs="0" name="statusId" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="title" nillable="true" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="fileData">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="fileDescription" type="xs:string"/>
+      <xs:element minOccurs="0" name="fileName" type="xs:string"/>
+      <xs:element minOccurs="0" name="fileTitle" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="patent">
+    <xs:complexContent>
+      <xs:extension base="tns:ipRecord">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="conclusionMethod" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="description" nillable="true" type="xs:string"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="inventors" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="patentAbstract" nillable="true" type="xs:string"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="priorities" nillable="true" type="tns:priority"/>
+          <xs:element minOccurs="0" name="registrationNumber" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="representativeName" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="requestCountryId" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="technicalReportDetail" nillable="true" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="priority">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="priorityCountryId" type="xs:string"/>
+      <xs:element minOccurs="0" name="priorityDate" nillable="true" type="xs:date"/>
+      <xs:element minOccurs="0" name="priorityNumber" nillable="true" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="distinctiveSign">
+    <xs:complexContent>
+      <xs:extension base="tns:ipRecord">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="distinctiveSignType" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="expiration" nillable="true" type="xs:date"/>
+          <xs:element minOccurs="0" name="logoDescription" nillable="true" type="xs:string"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="niceClasses" nillable="true" type="tns:niceClass"/>
+          <xs:element minOccurs="0" name="presentationType" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="registrationDate" nillable="true" type="xs:date"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="niceClass">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="activity" type="xs:string"/>
+      <xs:element name="niceClass" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="inventionPatent">
+    <xs:complexContent>
+      <xs:extension base="tns:patent">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="internationalClassification" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="patentTypeId" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="pctApplicationDate" type="xs:date"/>
+          <xs:element minOccurs="0" name="pctApplicationNumber" nillable="true" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="designPatent">
+    <xs:complexContent>
+      <xs:extension base="tns:patent">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="designClassification" nillable="true" type="xs:string"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="locarnoClassification" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="mainDesignImage" nillable="true" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="removeRecordResponse">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="catalogFaultMessage">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="message" type="xs:string"/>
+      <xs:element minOccurs="0" name="messageId" type="xs:int"/>
+      <xs:element minOccurs="0" name="severity" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getRecord">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ipRecord" type="tns:ipRecord"/>
+      <xs:element minOccurs="0" name="user" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getRecordResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ipRecordResult" type="tns:ipRecord"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="createRecord">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ipRecord" type="tns:ipRecord"/>
+      <xs:element minOccurs="0" name="user" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="createRecordResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ipRecordResult" type="tns:ipRecord"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="ipRecordTypeEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="DISTINCTIVE_SIGN"/>
+      <xs:enumeration value="INVENTION_PATENT"/>
+      <xs:enumeration value="DESIGN_PATENT"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="CatalogFault" type="tns:CatalogFault"/>
+  <xs:complexType name="CatalogFault">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="messages" type="tns:catalogFaultMessage"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="removeRecordResponse">
+    <wsdl:part element="tns:removeRecordResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getRecordResponse">
+    <wsdl:part element="tns:getRecordResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="removeRecord">
+    <wsdl:part element="tns:removeRecord" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="createRecordResponse">
+    <wsdl:part element="tns:createRecordResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="CatalogFault">
+    <wsdl:part element="tns:CatalogFault" name="CatalogFault">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="createRecord">
+    <wsdl:part element="tns:createRecord" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getRecord">
+    <wsdl:part element="tns:getRecord" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="ProsurIPRecordWS">
+    <wsdl:operation name="removeRecord">
+      <wsdl:input message="tns:removeRecord" name="removeRecord">
+    </wsdl:input>
+      <wsdl:output message="tns:removeRecordResponse" name="removeRecordResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:CatalogFault" name="CatalogFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getRecord">
+      <wsdl:input message="tns:getRecord" name="getRecord">
+    </wsdl:input>
+      <wsdl:output message="tns:getRecordResponse" name="getRecordResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:CatalogFault" name="CatalogFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="createRecord">
+      <wsdl:input message="tns:createRecord" name="createRecord">
+    </wsdl:input>
+      <wsdl:output message="tns:createRecordResponse" name="createRecordResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:CatalogFault" name="CatalogFault">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ProsurIPRecordWSServiceSoapBinding" type="tns:ProsurIPRecordWS">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="removeRecord">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="removeRecord">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="removeRecordResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="CatalogFault">
+        <soap:fault name="CatalogFault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getRecord">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getRecord">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getRecordResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="CatalogFault">
+        <soap:fault name="CatalogFault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="createRecord">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="createRecord">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="createRecordResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="CatalogFault">
+        <soap:fault name="CatalogFault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ProsurIPRecordWSService">
+    <wsdl:port binding="tns:ProsurIPRecordWSServiceSoapBinding" name="ProsurIPRecordWSPort">
+      <soap:address location="https://iprecordws.prosur.org:8443/ProsurCatalog/ProsurIPRecordWS"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
